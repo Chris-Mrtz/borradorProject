@@ -30,6 +30,23 @@ def eliminar_proyecto(id):
     except Exception as e:
         print(f"Error eliminar el proyecto: {e}")
         conexion.conexion.rollback()
+def actualizar_proyecto(id_proyecto, nombre, descripcion):
+    try:
+        sql = "UPDATE proyectos SET nombre = %s, descripcion = %s WHERE id = %s"
+        datos = (nombre, descripcion, id_proyecto)
+        conexion.cursor.execute(sql, datos)
+        conexion.conexion.commit()
+    except Exception as e:
+        print(f"Error actualizar el proyecto: {e}")
+
+def buscar_los_proyectos():
+    try:
+        sql = "SELECT * FROM proyectos"
+        conexion.cursor.execute(sql)
+        resultado = conexion.cursor.fetchall()
+        return resultado
+    except Exception as e:
+        print(f"Error buscando los proyectos: {e}")
 
 
 def asignar_proyecto(id_empleado, id_proyecto):

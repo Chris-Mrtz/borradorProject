@@ -23,7 +23,7 @@ def buscar_departamento(nombre):
 
 def buscar_todos_los_departamentos():
     try:
-        sql = 'SELECT * FROM departamentos'
+        sql = 'SELECT nombre FROM departamentos'
         conexion.cursor.execute(sql)
         resultado = conexion.cursor.fetchall()
         return resultado
@@ -52,4 +52,14 @@ def eliminar_departamento(id):
 
     except Exception as e:
         print(f"Error al eliminar departamento: {e}")
+        conexion.conexion.rollback()
+
+def asignar_gerente_a_departamento(id_departamento, id_empleado):
+    try:
+        sql = "INSERT INTO asignacion_gerente(id_departamento, id_empleado) VALUES (%s, %s)"
+        datos = (id_departamento, id_empleado)
+        conexion.cursor.execute(sql, datos)
+        conexion.conexion.commit()
+    except Exception as e:
+        print(f"Error al asignar de departamento: {e}")
         conexion.conexion.rollback()

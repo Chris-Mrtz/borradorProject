@@ -35,10 +35,10 @@ def actualizar_contrasena(id, contrasena):
         print(f"Error actualizando la contrasena: {e}")
         conexion.conexion.rollback()
 
-def buscar_usuario(id):
+def buscar_usuario(usuario):
     try:
-        sql = "SELECT * FROM usuarios WHERE id = %s"
-        datos = (id,)
+        sql = "SELECT * FROM usuarios WHERE usuario = %s"
+        datos = (usuario,)
         conexion.cursor.execute(sql, datos)
         resultado = conexion.cursor.fetchone()
         return resultado
